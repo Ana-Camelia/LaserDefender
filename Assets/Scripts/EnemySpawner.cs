@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int startingWave = 0;
     [SerializeField] bool looping = false;
     float offset;
+    float columnParityFactor; //offset aditional pentru un numar par de coloane
     int waveRows, waveColumns;
     Vector3 offsetVector;
     EnemyPathing enemyPathing;
@@ -35,6 +36,7 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator SpawnAllEnemiesInWave(WaveConfig waveConfig)
     {
         SetUpWaveVariables(waveConfig);
+        columnParityFactor = SetColumnParityFactor(waveColumns);
         for (int enemyRowIndex = 0; enemyRowIndex < waveRows; enemyRowIndex++) //lansam atatia inamici cati am indicat in waveConfig
         {
             for (int enemyColumnIndex = 0; enemyColumnIndex < waveColumns; enemyColumnIndex++)
@@ -58,8 +60,13 @@ public class EnemySpawner : MonoBehaviour
     private Vector3 SetOffsetVector(int enemyColumnIndex)
     {
         return (enemyColumnIndex % 2 == 0) ?
-            new Vector3(enemyColumnIndex / 2 * offset, 0, 0) :
-            new Vector3(-(enemyColumnIndex / 2 + 1) * offset, 0, 0);
+            new Vector3(enemyColumnIndex / 2 * offset + columnParityFactor, 0, 0) :
+            new Vector3(-(enemyColumnIndex / 2 + 1) * offset + columnParityFactor, 0, 0);
+    }
+
+    private float SetColumnParityFactor(int enemyColumnIndex)
+    {
+        return (enemyColumnIndex % 2 == 0) ? offset / 2 : 0;
     }
 
     private void SetUpWaveVariables(WaveConfig waveConfig)

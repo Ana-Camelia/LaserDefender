@@ -17,5 +17,5 @@ MonoBehaviour:
   timeBetweenSpawns: 0.5
   spawnRandomFactor: 0.3
   moveSpeed: 7
-  numberOfRows: 10
-  numberOfColumns: 5
+  numberOfRows: 5
+  numberOfColumns: 10
