@@ -44,6 +44,10 @@ public class Player : MonoBehaviour
         yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
     }
 
+    public float getCanvasXLength()
+    {
+        return xMax - xMin;
+    }
     // Update is called once per frame
     void Update()
     {

@@ -7,7 +7,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<WaveConfig> waveConfigs;
     [SerializeField] int startingWave = 0;
     [SerializeField] bool looping = false;
-    int offset = 5;
+    float offset;
+
     // Start is called before the first frame update
     IEnumerator Start() //transformam metoda Start() intr-o corutina deoarece lansarea wave-urilor este repetitiva
     {
@@ -30,17 +31,23 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnAllEnemiesInWave(WaveConfig waveConfig)
     {
+        offset = FindObjectOfType<Player>().getCanvasXLength() / (waveConfig.GetNumberOfColumns() + 1);
         for (int enemyRowIndex = 0; enemyRowIndex < waveConfig.GetNumberOfRows(); enemyRowIndex++) //lansam atatia inamici cati am indicat in waveConfig
         {
             for (int enemyColumnIndex = 0; enemyColumnIndex < waveConfig.GetNumberOfColumns(); enemyColumnIndex++)
             {
+                Vector3 offsetVector;
+                if (enemyColumnIndex % 2 == 0)
+                    offsetVector = new Vector3(enemyColumnIndex / 2 * offset, 0, 0);
+                else
+                    offsetVector = new Vector3(-(enemyColumnIndex / 2 + 1) * offset, 0, 0);
                 //instantiem prefab-ul ales, la pozitia 0 din traiectorie, si il intoarcem la 180 de grade pentru a fi cu fata spre jucator
                 var newEnemy = Instantiate(
                     waveConfig.GetEnemyPrefab(),
-                    waveConfig.GetWaypoints()[0].transform.position + new Vector3(enemyColumnIndex*offset,0,0),
+                    waveConfig.GetWaypoints()[0].transform.position + offsetVector,
                     Quaternion.Euler(new Vector3(0, 0, 180)));
                 newEnemy.GetComponent<EnemyPathing>().SetWaveConfig(waveConfig); //setam waveConfig-ul in codul de enemyPathing atasat fiecarui inamic
-                newEnemy.GetComponent<EnemyPathing>().SetWaypointOffset(new Vector3(enemyColumnIndex * offset, 0, 0));
+                newEnemy.GetComponent<EnemyPathing>().SetWaypointOffset(offsetVector);
             }
 
                 yield return new WaitForSeconds(waveConfig.GetTimeBetweenSpawns()); //asteptam un anumit timp pana la instantierea urmatorului inamic
