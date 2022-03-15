@@ -13,8 +13,9 @@ public class WaveConfig : ScriptableObject
     [SerializeField] float timeBetweenSpawns = 0.5f; //timpul de spawn intre inamicii aceluiasi wave
     [SerializeField] float spawnRandomFactor = 0.3f;
     [SerializeField] float moveSpeed = 10f; //viteza de deplasare a inamicilor din wave
-    [SerializeField] int numberOfEnemies = 5; //numarul de inamici din wave
-    
+    [SerializeField] int numberOfRows = 5; //numarul de randuri din wave
+    [SerializeField] int numberOfColumns = 1; //numarul de coloane din wave
+
     public GameObject GetEnemyPrefab() { return enemyPrefab; }
     public List<Transform> GetWaypoints() 
     {
@@ -30,5 +31,6 @@ public class WaveConfig : ScriptableObject
     public float GetTimeBetweenSpawns() { return timeBetweenSpawns; }
     public float GetSpawnRandomFactor() { return spawnRandomFactor; }
     public float GetMoveSpeed() { return moveSpeed; }
-    public int GetNumberOfEnemies() { return numberOfEnemies; }
+    public int GetNumberOfRows() { return numberOfRows; }
+    public int GetNumberOfColumns() { return numberOfColumns; }
 }
