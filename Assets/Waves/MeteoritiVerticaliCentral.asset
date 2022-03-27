@@ -16,6 +16,6 @@ MonoBehaviour:
   pathPrefab: {fileID: 1359982743042836466, guid: 9c99f0ab88f2c3947a2cf32d08f68093, type: 3}
   timeBetweenSpawns: 0.5
   spawnRandomFactor: 0.3
-  moveSpeed: 7
+  moveSpeed: 3
   numberOfRows: 5
-  numberOfColumns: 10
+  numberOfColumns: 6

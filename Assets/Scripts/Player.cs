@@ -67,7 +67,28 @@ public class Player : MonoBehaviour
         var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
         var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
         transform.position = new Vector2(newXPos, newYPos);
+        TiltPlayer(deltaX);
     }
+
+    private void TiltPlayer(float deltaX)
+    {
+        if (deltaX > 0)
+        {
+            myAnimator.SetBool("isTiltingLeft", false);
+            myAnimator.SetBool("isTiltingRight", true);
+        }
+        else if (deltaX < 0)
+        {
+            myAnimator.SetBool("isTiltingLeft", true);
+            myAnimator.SetBool("isTiltingRight", false);
+        }
+        else
+        {
+            myAnimator.SetBool("isTiltingLeft", false);
+            myAnimator.SetBool("isTiltingRight", false);
+        }
+    }
+
     void Fire()
     {
         if (Input.GetButtonDown("Fire1")) //left click
