@@ -36,12 +36,12 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator SpawnAllEnemiesInWave(WaveConfig waveConfig)
     {
         SetUpWaveVariables(waveConfig);
-        columnParityFactor = SetColumnParityFactor(waveColumns);
+        columnParityFactor = SetMultiplicationParityFactor(waveColumns);
         for (int enemyRowIndex = 0; enemyRowIndex < waveRows; enemyRowIndex++) //lansam atatia inamici cati am indicat in waveConfig
         {
             for (int enemyColumnIndex = 0; enemyColumnIndex < waveColumns; enemyColumnIndex++)
             {
-                offsetVector = SetOffsetVector(enemyColumnIndex);
+                offsetVector = SetOffsetVector(waveConfig.GetIsVertical(),enemyColumnIndex);
                 //instantiem prefab-ul ales, la pozitia 0 din traiectorie, si il intoarcem la 180 de grade pentru a fi cu fata spre jucator
                 var newEnemy = Instantiate(
                     waveConfig.GetEnemyPrefab(),
@@ -57,22 +57,29 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private Vector3 SetOffsetVector(int enemyColumnIndex)
+    private Vector3 SetOffsetVector(bool isVertical, int enemyMultiplicationIndex)
     {
-        return (enemyColumnIndex % 2 == 0) ?
-            new Vector3(enemyColumnIndex / 2 * offset + columnParityFactor, 0, 0) :
-            new Vector3(-(enemyColumnIndex / 2 + 1) * offset + columnParityFactor, 0, 0);
+        if(isVertical)
+            return (enemyMultiplicationIndex % 2 == 0) ?
+                new Vector3(enemyMultiplicationIndex / 2 * offset + columnParityFactor, 0, 0) :
+                new Vector3(-(enemyMultiplicationIndex / 2 + 1) * offset + columnParityFactor, 0, 0);
+        else
+            return (enemyMultiplicationIndex % 2 == 0) ?
+                new Vector3(0, enemyMultiplicationIndex / 2 * offset + columnParityFactor, 0) :
+                new Vector3(0, -(enemyMultiplicationIndex / 2 + 1) * offset + columnParityFactor, 0);
     }
 
-    private float SetColumnParityFactor(int enemyColumnIndex)
+    private float SetMultiplicationParityFactor(int enemyColumnIndex)
     {
         return (enemyColumnIndex % 2 == 0) ? offset / 2 : 0;
     }
 
     private void SetUpWaveVariables(WaveConfig waveConfig)
     {
-        offset = FindObjectOfType<Player>().getCanvasXLength() / (waveConfig.GetNumberOfColumns() + 1);
-        waveRows = waveConfig.GetNumberOfRows();
-        waveColumns = waveConfig.GetNumberOfColumns();
+        offset = (waveConfig.GetIsVertical()) ?
+            FindObjectOfType<Player>().getCanvasXLength() / (waveConfig.GetMultiplication() + 1) :
+            FindObjectOfType<Player>().getCanvasYLength() / (waveConfig.GetMultiplication() + 1);
+        waveRows = waveConfig.GetEnemyNumber();
+        waveColumns = waveConfig.GetMultiplication();
     }
 }

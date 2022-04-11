@@ -768,16 +768,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1182502714487279606, guid: 62704b9036efa0646a37302ea62715b2, type: 3}
       propertyPath: looping
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1182502714487279606, guid: 62704b9036efa0646a37302ea62715b2, type: 3}
       propertyPath: waveConfigs.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1182502714487279606, guid: 62704b9036efa0646a37302ea62715b2, type: 3}
       propertyPath: waveConfigs.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 0b2423b7d8bb9dd4ca814aeb9e524fe5, type: 2}
+      objectReference: {fileID: 11400000, guid: 009e7f39d09085e42b9add47cf3c0338, type: 2}
     - target: {fileID: 1182502714487279606, guid: 62704b9036efa0646a37302ea62715b2, type: 3}
       propertyPath: waveConfigs.Array.data[1]
       value: 

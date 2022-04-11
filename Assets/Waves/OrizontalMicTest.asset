@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 748cdec376142664bb6b9a60d1c7af8e, type: 3}
-  m_Name: MeteoritiVerticaliCentral
+  m_Name: OrizontalMicTest
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 2688922786473137903, guid: 0e38d76d3a185f94a89edbb3c2963933, type: 3}
-  pathPrefab: {fileID: 1359982743042836466, guid: 9c99f0ab88f2c3947a2cf32d08f68093, type: 3}
+  enemyPrefab: {fileID: 2688922786473137903, guid: 92bbdbd0cddef324794b7726ffb14472, type: 3}
+  pathPrefab: {fileID: 1359982743042836466, guid: 8ba1b5d8efef6dc4990cee0f50c35e2b, type: 3}
   timeBetweenSpawns: 0.5
   spawnRandomFactor: 0.3
-  moveSpeed: 3
-  isVertical: 1
+  moveSpeed: 10
+  isVertical: 0
   enemyNumber: 5
-  multiplication: 6
+  multiplication: 2

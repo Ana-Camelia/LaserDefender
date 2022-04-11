@@ -48,6 +48,11 @@ public class Player : MonoBehaviour
     {
         return xMax - xMin;
     }
+
+    public float getCanvasYLength()
+    {
+        return yMax - yMin;
+    }
     // Update is called once per frame
     void Update()
     {
