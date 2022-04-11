@@ -8,13 +8,14 @@ public class EnemyPathing : MonoBehaviour
     WaveConfig waveConfig;
     List<Transform> waypoints;
 
-    int waypointIndex = 0;
+    int waypointIndex = 1;
+    Vector3 waypointOffset = new Vector3(0,0,0);
 
     // Start is called before the first frame update
     void Start()
     {
         waypoints = waveConfig.GetWaypoints(); //preluam lista de puncte din waveConfig care reprezinta traiectoria
-        transform.position = waypoints[waypointIndex].transform.position; //pozitionam inamicul in dreptul primului waypoint din traiectorie
+        //transform.position = waypoints[waypointIndex].transform.position; //pozitionam inamicul in dreptul primului waypoint din traiectorie
     }
 
     // Update is called once per frame
@@ -28,12 +29,17 @@ public class EnemyPathing : MonoBehaviour
         this.waveConfig = waveConfig;
     }
 
+    public void SetWaypointOffset(Vector3 waypointOffset)
+    {
+        this.waypointOffset = waypointOffset;
+    }
+
     private void Move()
     {
         //daca inca nu am ajuns la finalul listei, continuam traiectoria
         if (waypointIndex < waypoints.Count)
         {
-            var targetPosition = waypoints[waypointIndex].transform.position; //pozitia la care vrem sa ajungem
+            var targetPosition = waypoints[waypointIndex].transform.position + waypointOffset; //pozitia la care vrem sa ajungem
             var movementThisFrame = waveConfig.GetMoveSpeed() * Time.deltaTime; //distanta parcursa in acest frame
                                                 //inmultind viteza cu Time.deltaTime() (adica cat a durat frame-ul)
                                                 //obtinem o miscare independenta de frame rate
