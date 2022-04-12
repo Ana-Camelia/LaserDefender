@@ -389,7 +389,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-32556
+  m_Name: pb_Mesh-5426
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1133,11 +1133,15 @@ PrefabInstance:
       objectReference: {fileID: 1239009466}
     - target: {fileID: 1644588939537945450, guid: ec126d8230678644d97cd5a5be9dee6b, type: 3}
       propertyPath: m_VersionIndex
-      value: 1543
+      value: 1552
       objectReference: {fileID: 0}
     - target: {fileID: 3733972341751539779, guid: ec126d8230678644d97cd5a5be9dee6b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733972341751539780, guid: ec126d8230678644d97cd5a5be9dee6b, type: 3}
+      propertyPath: explosionSFXVolume
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3733972341751539781, guid: ec126d8230678644d97cd5a5be9dee6b, type: 3}
       propertyPath: m_RootOrder

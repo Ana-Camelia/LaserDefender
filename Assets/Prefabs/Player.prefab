@@ -388,8 +388,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 300
-  deathSFX: {fileID: 8300000, guid: 602de2200cf0f5c45b75064dd05155c1, type: 3}
-  deathSFXVolume: 0.3
+  explosionSFX: {fileID: 8300000, guid: 602de2200cf0f5c45b75064dd05155c1, type: 3}
+  explosionSFXVolume: 1
+  explosionVFX: {fileID: 3804573288917711026, guid: c53d635724bd594438735942d3bc8e53, type: 3}
   laserPrefab: {fileID: 748430062766959504, guid: 4253034e9b3906944959f5dba38ad016, type: 3}
   laserSFX: {fileID: 8300000, guid: debae4512dbebe34185de78ad4245ce5, type: 3}
   laserSFXVolume: 0.2

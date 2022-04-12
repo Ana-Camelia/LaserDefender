@@ -6,26 +6,28 @@ public class Player : MonoBehaviour
 {
     float moveSpeed = 10f;
     float padding = 1f;
+    float xMin, xMax;
+    float yMin, yMax;
 
     [Header("Health")]
     [SerializeField] int health = 300;
-    [SerializeField] AudioClip deathSFX;
-    [SerializeField] [Range(0, 1)] float deathSFXVolume = 1f;
 
-    float xMin, xMax;
-    float yMin, yMax;
+    [Header("Explosion")]
+    [SerializeField] AudioClip explosionSFX;
+    [SerializeField] [Range(0, 1)] float explosionSFXVolume = 1f;
+    [SerializeField] GameObject explosionVFX;
+    float durationOfExplosion = 2f;
+    ShakeEffect shakeEffect;
 
     [Header("Laser")]
     [SerializeField] GameObject laserPrefab;
     [SerializeField] AudioClip laserSFX;
     [SerializeField] [Range(0, 1)] float laserSFXVolume = 0.5f;
-
     float laserSpeed = 20f;
     float laserFiringPeriod = 0.1f;
     Vector3 laserPadding = new Vector3(0, 0.5f, 0);
     Coroutine firingCoroutine;
 
-    ShakeEffect shakeEffect;
 
     Animator myAnimator;
 
@@ -147,6 +149,7 @@ public class Player : MonoBehaviour
     {
         health -= damageDealer.GetDamage();
         damageDealer.Hit();
+        AudioSource.PlayClipAtPoint(explosionSFX, Camera.main.transform.position, explosionSFXVolume);
         if (health <= 0)
         {
             Die();
@@ -157,12 +160,11 @@ public class Player : MonoBehaviour
     {
         FindObjectOfType<GameManager>().LoadGameOver();
         Destroy(gameObject);
-        //GameObject explosion = Instantiate(
-        //    explosionVFX,
-        //    transform.position,
-        //    Quaternion.identity) as GameObject;
-        //Destroy(explosion, durationOfExplosion);
-        AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position, deathSFXVolume);
+        GameObject explosion = Instantiate(
+            explosionVFX,
+            transform.position,
+            Quaternion.identity) as GameObject;
+        Destroy(explosion, durationOfExplosion);
     }
 
     public int GetHealth()
