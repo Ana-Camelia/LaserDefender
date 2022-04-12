@@ -76,9 +76,11 @@ public class EnemySpawner : MonoBehaviour
 
     private void SetUpWaveVariables(WaveConfig waveConfig)
     {
+        Player player = FindObjectOfType<Player>();
+        if(!player) { return; }
         offset = (waveConfig.GetIsVertical()) ?
-            FindObjectOfType<Player>().getCanvasXLength() / (waveConfig.GetMultiplication() + 1) :
-            FindObjectOfType<Player>().getCanvasYLength() / (waveConfig.GetMultiplication() + 1);
+            player.getCanvasXLength() / (waveConfig.GetMultiplication() + 1) :
+            player.getCanvasYLength() / (waveConfig.GetMultiplication() + 1);
         waveRows = waveConfig.GetEnemyNumber();
         waveColumns = waveConfig.GetMultiplication();
     }

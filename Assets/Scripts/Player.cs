@@ -19,16 +19,20 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject laserPrefab;
     [SerializeField] AudioClip laserSFX;
     [SerializeField] [Range(0, 1)] float laserSFXVolume = 0.5f;
+
     float laserSpeed = 20f;
     float laserFiringPeriod = 0.1f;
     Vector3 laserPadding = new Vector3(0, 0.5f, 0);
     Coroutine firingCoroutine;
+
+    ShakeEffect shakeEffect;
 
     Animator myAnimator;
 
     void Start()
     {
         myAnimator = GetComponent<Animator>();
+        shakeEffect = Camera.main.GetComponent<ShakeEffect>();
         SetUpBoundaries();
     }
 
@@ -129,6 +133,7 @@ public class Player : MonoBehaviour
         myAnimator.SetBool("wasHitted", true);
         DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
         if(!damageDealer) { return; }
+        shakeEffect.StartShaking();
         ProcessHit(damageDealer);
         StartCoroutine(AnimationWait());
     }
