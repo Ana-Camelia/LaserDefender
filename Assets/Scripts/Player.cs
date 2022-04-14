@@ -28,6 +28,10 @@ public class Player : MonoBehaviour
     Vector3 laserPadding = new Vector3(0, 0.5f, 0);
     Coroutine firingCoroutine;
 
+    [Header("Materials")]
+    [SerializeField] Material fullHealthMaterial;
+    [SerializeField] Material mediumHealthMaterial;
+    [SerializeField] Material lowHealthMaterial;
 
     Animator myAnimator;
 
@@ -142,7 +146,7 @@ public class Player : MonoBehaviour
 
     IEnumerator AnimationWait()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         myAnimator.SetBool("wasHitted", false);
     }
     void ProcessHit(DamageDealer damageDealer)
@@ -150,7 +154,31 @@ public class Player : MonoBehaviour
         health -= damageDealer.GetDamage();
         damageDealer.Hit();
         AudioSource.PlayClipAtPoint(explosionSFX, Camera.main.transform.position, explosionSFXVolume);
-        if (health <= 0)
+        CheckHealth();
+    }
+
+    private void CheckHealth()
+    {
+        MeshRenderer bodyRenderer = transform.Find("Body").GetComponent<MeshRenderer>();
+
+        if(health >300)
+        {
+            health = 300;
+            bodyRenderer.material = fullHealthMaterial;
+        }
+        else if(health > 200)
+        {
+            bodyRenderer.material = fullHealthMaterial;
+        }
+        else if (health > 100)
+        {
+            bodyRenderer.material = mediumHealthMaterial;
+        }
+        else if (health > 0)
+        {
+            bodyRenderer.material = lowHealthMaterial;
+        }
+        else if (health <= 0)
         {
             Die();
         }
