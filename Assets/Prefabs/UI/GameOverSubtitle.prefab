@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GAME OVER
+  m_text: Congratulations! You are a real hero.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 29d8c499abac8cb4881ddc3aa66e2a47, type: 2}
   m_sharedMaterial: {fileID: -4057235747160063338, guid: 29d8c499abac8cb4881ddc3aa66e2a47, type: 2}
@@ -74,15 +74,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190847
-  m_fontColor: {r: 1, g: 0.008566285, b: 0, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
+    rgba: 4278237951
+  m_fontColor: {r: 1, g: 0.7294118, b: 0, a: 1}
+  m_enableVertexGradient: 1
+  m_colorMode: 1
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 1, g: 0.7294118, b: 0, a: 1}
+    topRight: {r: 0.936, g: 0.68231773, b: 0, a: 0.7647059}
+    bottomLeft: {r: 1, g: 0.7294118, b: 0, a: 1}
+    bottomRight: {r: 0.936, g: 0.68231773, b: 0, a: 0.7647059}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 150
-  m_fontSizeBase: 150
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
