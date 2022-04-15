@@ -17,6 +17,9 @@ public class GameSession : MonoBehaviour
         int numberGameSessions = FindObjectsOfType<GameSession>().Length;
         if(numberGameSessions > 1)
         {
+            gameObject.SetActive(false); //dezactivam obiectul pentru a fi siguri
+                                         //ca nu exista alte script-uri care incearca
+                                         //sa il acceseze
             Destroy(gameObject); //distrugem acest obiect care incearca sa se suprapuna
         }
         else

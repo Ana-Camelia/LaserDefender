@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     float moveSpeed = 10f;
-    float padding = 1f;
+    float paddingBottom = 1f, paddingLeftRightUp = 2f;
     float xMin, xMax;
     float yMin, yMax;
 
@@ -47,11 +47,11 @@ public class Player : MonoBehaviour
         Camera gameCamera = Camera.main; //accesam camera principala
 
         //determinam dimensiunile camerei
-        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + padding;
-        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - padding;
+        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + paddingLeftRightUp;
+        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - paddingLeftRightUp;
 
-        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;
-        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
+        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + paddingBottom;
+        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - paddingLeftRightUp;
     }
 
     public float getCanvasXLength()
