@@ -22,7 +22,7 @@ public class ScoreDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = gameSession.GetScore().ToString();
+        scoreText.text = gameSession.GetScore().ToString("000000");
         //Debug.Log(gameSession.GetScore().ToString());
         if (!levelConfig) { return; }
         if ((gameSession.GetScore() >= levelConfig.GetTargetScore()) && (levelConfig.GetSceneName().Contains("Level")))

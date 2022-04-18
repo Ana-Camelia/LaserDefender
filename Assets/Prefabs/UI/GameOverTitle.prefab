@@ -76,13 +76,13 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4278190847
   m_fontColor: {r: 1, g: 0.008566285, b: 0, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
+  m_enableVertexGradient: 1
+  m_colorMode: 1
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 1, g: 0.007843138, b: 0, a: 1}
+    topRight: {r: 1, g: 0, b: 0, a: 0.70980394}
+    bottomLeft: {r: 1, g: 0.007843138, b: 0, a: 1}
+    bottomRight: {r: 1, g: 0, b: 0, a: 0.70980394}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0

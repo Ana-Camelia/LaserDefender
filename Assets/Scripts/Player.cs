@@ -5,15 +5,19 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     float moveSpeed = 10f;
-    float padding = 1f;
+    float paddingBottom = 1f, paddingLeftRightUp = 2f;
+    float xMin, xMax;
+    float yMin, yMax;
 
     [Header("Health")]
     [SerializeField] int health = 300;
-    [SerializeField] AudioClip deathSFX;
-    [SerializeField] [Range(0, 1)] float deathSFXVolume = 1f;
 
-    float xMin, xMax;
-    float yMin, yMax;
+    [Header("Explosion")]
+    [SerializeField] AudioClip explosionSFX;
+    [SerializeField] [Range(0, 1)] float explosionSFXVolume = 1f;
+    [SerializeField] GameObject explosionVFX;
+    float durationOfExplosion = 2f;
+    ShakeEffect shakeEffect;
 
     [Header("Laser")]
     [SerializeField] GameObject laserPrefab;
@@ -24,11 +28,17 @@ public class Player : MonoBehaviour
     Vector3 laserPadding = new Vector3(0, 0.5f, 0);
     Coroutine firingCoroutine;
 
+    [Header("Materials")]
+    [SerializeField] Material fullHealthMaterial;
+    [SerializeField] Material mediumHealthMaterial;
+    [SerializeField] Material lowHealthMaterial;
+
     Animator myAnimator;
 
     void Start()
     {
         myAnimator = GetComponent<Animator>();
+        shakeEffect = Camera.main.GetComponent<ShakeEffect>();
         SetUpBoundaries();
     }
 
@@ -37,11 +47,11 @@ public class Player : MonoBehaviour
         Camera gameCamera = Camera.main; //accesam camera principala
 
         //determinam dimensiunile camerei
-        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + padding;
-        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - padding;
+        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + paddingLeftRightUp;
+        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - paddingLeftRightUp;
 
-        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;
-        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
+        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + paddingBottom;
+        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - paddingLeftRightUp;
     }
 
     public float getCanvasXLength()
@@ -129,20 +139,46 @@ public class Player : MonoBehaviour
         myAnimator.SetBool("wasHitted", true);
         DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
         if(!damageDealer) { return; }
+        shakeEffect.StartShaking();
         ProcessHit(damageDealer);
         StartCoroutine(AnimationWait());
     }
 
     IEnumerator AnimationWait()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         myAnimator.SetBool("wasHitted", false);
     }
     void ProcessHit(DamageDealer damageDealer)
     {
         health -= damageDealer.GetDamage();
         damageDealer.Hit();
-        if (health <= 0)
+        AudioSource.PlayClipAtPoint(explosionSFX, Camera.main.transform.position, explosionSFXVolume);
+        CheckHealth();
+    }
+
+    private void CheckHealth()
+    {
+        MeshRenderer bodyRenderer = transform.Find("Body").GetComponent<MeshRenderer>();
+
+        if(health >300)
+        {
+            health = 300;
+            bodyRenderer.material = fullHealthMaterial;
+        }
+        else if(health > 200)
+        {
+            bodyRenderer.material = fullHealthMaterial;
+        }
+        else if (health > 100)
+        {
+            bodyRenderer.material = mediumHealthMaterial;
+        }
+        else if (health > 0)
+        {
+            bodyRenderer.material = lowHealthMaterial;
+        }
+        else if (health <= 0)
         {
             Die();
         }
@@ -152,12 +188,11 @@ public class Player : MonoBehaviour
     {
         FindObjectOfType<GameManager>().LoadGameOver();
         Destroy(gameObject);
-        //GameObject explosion = Instantiate(
-        //    explosionVFX,
-        //    transform.position,
-        //    Quaternion.identity) as GameObject;
-        //Destroy(explosion, durationOfExplosion);
-        AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position, deathSFXVolume);
+        GameObject explosion = Instantiate(
+            explosionVFX,
+            transform.position,
+            Quaternion.identity) as GameObject;
+        Destroy(explosion, durationOfExplosion);
     }
 
     public int GetHealth()

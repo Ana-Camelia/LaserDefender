@@ -388,11 +388,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 300
-  deathSFX: {fileID: 8300000, guid: 602de2200cf0f5c45b75064dd05155c1, type: 3}
-  deathSFXVolume: 0.3
+  explosionSFX: {fileID: 8300000, guid: 602de2200cf0f5c45b75064dd05155c1, type: 3}
+  explosionSFXVolume: 0.3
+  explosionVFX: {fileID: 3804573288917711026, guid: c53d635724bd594438735942d3bc8e53, type: 3}
   laserPrefab: {fileID: 748430062766959504, guid: 4253034e9b3906944959f5dba38ad016, type: 3}
   laserSFX: {fileID: 8300000, guid: debae4512dbebe34185de78ad4245ce5, type: 3}
   laserSFXVolume: 0.2
+  fullHealthMaterial: {fileID: 2100000, guid: c5a541dc5b0e10049b84543fc5cebfee, type: 2}
+  mediumHealthMaterial: {fileID: 2100000, guid: a132af03671098a4eb8f01b6553ee589, type: 2}
+  lowHealthMaterial: {fileID: 2100000, guid: 8b46292ba49af5945a3e46b34edb3978, type: 2}
 --- !u!60 &7434105433574498453
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -483,7 +487,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &8253304616544338828
 Transform:
@@ -743,7 +747,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1492
+  m_VersionIndex: 1567
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
