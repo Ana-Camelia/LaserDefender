@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
-    float moveSpeed = 10f;
+    [SyncVar] [SerializeField] private float moveSpeed = 10f;
     float paddingBottom = 1f, paddingLeftRightUp = 2f;
     float xMin, xMax;
     float yMin, yMax;
@@ -42,6 +43,7 @@ public class Player : MonoBehaviour
         SetUpBoundaries();
     }
 
+#region Screen Boundaries
     void SetUpBoundaries()
     {
         Camera gameCamera = Camera.main; //accesam camera principala
@@ -63,14 +65,19 @@ public class Player : MonoBehaviour
     {
         return yMax - yMin;
     }
-    // Update is called once per frame
+#endregion
+
+    [ClientCallback] // client
     void Update()
     {
-        Move();
-        Fire();
+        if (!hasAuthority) { return; }
+        Vector2 movement = CalculateMovement();
+        CmdMove(movement);
+        //Fire();
     }
 
-    void Move()
+    [ClientCallback] //server
+    Vector2 CalculateMovement()
     {
         //cate unitati s-a deplasat pe X/Y intr-un frame
         //inmultit cu cate secunde a durat frame-ul
@@ -81,8 +88,21 @@ public class Player : MonoBehaviour
         //Mathf.Clamp verifica daca primul nr se incadreaza intre min si max
         var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
         var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
-        transform.position = new Vector2(newXPos, newYPos);
-        TiltPlayer(deltaX);
+        return new Vector2(newXPos, newYPos); //transform.position = new Vector2(newXPos, newYPos);
+        //TiltPlayer(deltaX);
+    }
+
+    [Server]
+    public void SetMoveSpeed(float newMoveSpeed)
+    {
+        moveSpeed = newMoveSpeed;
+    }
+
+
+    [Command] //server
+    private void CmdMove(Vector2 position)
+    {
+        transform.position = position;
     }
 
     private void TiltPlayer(float deltaX)
@@ -134,6 +154,7 @@ public class Player : MonoBehaviour
         }
     }
 
+#region Health and Death
     void OnTriggerEnter2D(Collider2D other)
     {
         myAnimator.SetBool("wasHitted", true);
@@ -149,6 +170,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         myAnimator.SetBool("wasHitted", false);
     }
+
     void ProcessHit(DamageDealer damageDealer)
     {
         health -= damageDealer.GetDamage();
@@ -200,4 +222,5 @@ public class Player : MonoBehaviour
         if (health > 0) return health;
         else return 0;
     }
+#endregion
 }

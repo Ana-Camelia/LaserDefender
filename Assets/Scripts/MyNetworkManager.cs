@@ -5,15 +5,12 @@ using Mirror;
 
 public class MyNetworkManager : NetworkManager
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        
+        base.OnServerAddPlayer(conn);
+
+        Player player = conn.identity.GetComponent<Player>();
+        player.SetMoveSpeed(100f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
