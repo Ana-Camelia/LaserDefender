@@ -296,11 +296,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3733972341751539781}
   - component: {fileID: 3733972341751539778}
-  - component: {fileID: 3733972341751539780}
   - component: {fileID: 7434105433574498453}
   - component: {fileID: 78309762806326500}
   - component: {fileID: 3477639751200356608}
   - component: {fileID: 8776524947971908456}
+  - component: {fileID: 3733972341751539780}
+  - component: {fileID: -2993907690769276458}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -377,30 +378,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3733972341751539780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3733972341751539779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e8a66e09cbae5f44a5dd235701cf113, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  health: 300
-  explosionSFX: {fileID: 8300000, guid: 602de2200cf0f5c45b75064dd05155c1, type: 3}
-  explosionSFXVolume: 0.3
-  explosionVFX: {fileID: 3804573288917711026, guid: c53d635724bd594438735942d3bc8e53, type: 3}
-  laserPrefab: {fileID: 748430062766959504, guid: 4253034e9b3906944959f5dba38ad016, type: 3}
-  laserSFX: {fileID: 8300000, guid: debae4512dbebe34185de78ad4245ce5, type: 3}
-  laserSFXVolume: 0.2
-  fullHealthMaterial: {fileID: 2100000, guid: c5a541dc5b0e10049b84543fc5cebfee, type: 2}
-  mediumHealthMaterial: {fileID: 2100000, guid: a132af03671098a4eb8f01b6553ee589, type: 2}
-  lowHealthMaterial: {fileID: 2100000, guid: 8b46292ba49af5945a3e46b34edb3978, type: 2}
 --- !u!60 &7434105433574498453
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -504,18 +481,18 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   clientAuthority: 0
-  sendInterval: 0.05
+  sendInterval: 0.01
   syncPosition: 1
   syncRotation: 1
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
   interpolateScale: 0
   bufferTimeMultiplier: 1
   bufferSizeLimit: 64
   catchupThreshold: 4
   catchupMultiplier: 0.1
-  onlySyncOnChange: 1
+  onlySyncOnChange: 0
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
@@ -523,6 +500,113 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &3733972341751539780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3733972341751539779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8a66e09cbae5f44a5dd235701cf113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  moveSpeed: 20
+  health: 300
+  explosionSFX: {fileID: 8300000, guid: 602de2200cf0f5c45b75064dd05155c1, type: 3}
+  explosionSFXVolume: 0.3
+  explosionVFX: {fileID: 3804573288917711026, guid: c53d635724bd594438735942d3bc8e53, type: 3}
+  laserPrefab: {fileID: 748430062766959504, guid: 4253034e9b3906944959f5dba38ad016, type: 3}
+  laserSFX: {fileID: 8300000, guid: debae4512dbebe34185de78ad4245ce5, type: 3}
+  laserSFXVolume: 0.2
+  fullHealthMaterial: {fileID: 2100000, guid: c5a541dc5b0e10049b84543fc5cebfee, type: 2}
+  mediumHealthMaterial: {fileID: 2100000, guid: a132af03671098a4eb8f01b6553ee589, type: 2}
+  lowHealthMaterial: {fileID: 2100000, guid: 8b46292ba49af5945a3e46b34edb3978, type: 2}
+--- !u!114 &-2993907690769276458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3733972341751539779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f47305b48652e9c4bb159b5e3ee48387, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17817e88-4b94-438c-afd2-349788845cde
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 862ab32e-5eb8-45f2-9dd5-9ade7d5df7f1
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4e0a40e8-8359-4b48-907e-9bceb38d2ae3
+    m_ActionName: Player/Fire[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: be81dd0f-8f77-4623-9f3a-d94001c1bff8
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f0d6612d-2e97-407e-9bc0-0b48e759e8ef
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ccc49d29-1e72-46e6-9918-d8e33ed95251
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 968b27bd-df50-455e-8abd-19f0615d0e7c
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c33122f9-836b-4145-b14d-7dce3576b366
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: af108867-035a-41ab-8b48-61f8b52b465a
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f57f06a5-53fa-4c54-b43a-5f96ec500251
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 59a17963-0655-42fb-9565-49c3ec7e8a18
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 471449b9-74d6-4600-8256-f8992531fb83
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eef99f7c-95c4-4d06-9e2b-f452234e337f
+    m_ActionName: UI/TrackedDeviceOrientation
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &3967857052883714364
 GameObject:
   m_ObjectHideFlags: 0

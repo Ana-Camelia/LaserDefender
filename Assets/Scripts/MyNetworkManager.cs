@@ -5,12 +5,12 @@ using Mirror;
 
 public class MyNetworkManager : NetworkManager
 {
-    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
-    {
-        base.OnServerAddPlayer(conn);
+    //public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    //{
+    //    base.OnServerAddPlayer(conn);
 
-        Player player = conn.identity.GetComponent<Player>();
-        player.SetMoveSpeed(100f);
-    }
+    //    Player player = conn.identity.GetComponent<Player>();
+    //    player.SetMoveSpeed(player.GetMoveSpeed(), 100f);
+    //}
 
 }

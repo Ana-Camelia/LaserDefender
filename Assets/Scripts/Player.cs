@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Mirror;
 
 public class Player : NetworkBehaviour
 {
-    [SyncVar] [SerializeField] private float moveSpeed = 10f;
+    //[SyncVar(hook = nameof(SetMoveSpeed))]
+    [SerializeField] private float moveSpeed = 20f;
+    Vector2 movement;
+    float lerpRate = 15;
     float paddingBottom = 1f, paddingLeftRightUp = 2f;
     float xMin, xMax;
     float yMin, yMax;
@@ -71,38 +75,53 @@ public class Player : NetworkBehaviour
     void Update()
     {
         if (!hasAuthority) { return; }
-        Vector2 movement = CalculateMovement();
-        CmdMove(movement);
+        Move();
+        //CmdMove(movement);
         //Fire();
     }
 
-    [ClientCallback] //server
-    Vector2 CalculateMovement()
+    void OnMove(InputValue value)
+    {
+        movement = value.Get<Vector2>();
+    }
+
+    [ClientCallback]
+    void Move()
     {
         //cate unitati s-a deplasat pe X/Y intr-un frame
         //inmultit cu cate secunde a durat frame-ul
         //astfel deplasarea va fi independenta de framerate
-        var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        var deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+        var deltaX = movement.x * Time.deltaTime * moveSpeed;
+        var deltaY = movement.y * Time.deltaTime * moveSpeed;
 
         //Mathf.Clamp verifica daca primul nr se incadreaza intre min si max
         var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
         var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
-        return new Vector2(newXPos, newYPos); //transform.position = new Vector2(newXPos, newYPos);
         //TiltPlayer(deltaX);
+        //movement = new Vector2(newXPos, newYPos);
+        //transform.position = movement;
+        Vector3 delta = new Vector3(newXPos,newYPos,0);
+        //transform.position = delta;
+        CmdMove(delta);
     }
 
     [Server]
-    public void SetMoveSpeed(float newMoveSpeed)
+    public void SetMoveSpeed(float oldMoveSpeed, float newMoveSpeed)
     {
         moveSpeed = newMoveSpeed;
     }
 
+    public float GetMoveSpeed()
+    {
+        return moveSpeed;
+    }
 
     [Command] //server
-    private void CmdMove(Vector2 position)
+    private void CmdMove(Vector3 position)
     {
-        transform.position = position;
+        transform.position = Vector3.Lerp(transform.position, 
+                                            position,
+                                            Time.deltaTime * lerpRate);
     }
 
     private void TiltPlayer(float deltaX)
