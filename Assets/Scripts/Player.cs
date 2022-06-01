@@ -60,12 +60,12 @@ public class Player : NetworkBehaviour
         yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - paddingLeftRightUp;
     }
 
-    public float getCanvasXLength()
+    public float GetCanvasXLength()
     {
         return xMax - xMin;
     }
 
-    public float getCanvasYLength()
+    public float GetCanvasYLength()
     {
         return yMax - yMin;
     }
@@ -97,7 +97,7 @@ public class Player : NetworkBehaviour
         //Mathf.Clamp verifica daca primul nr se incadreaza intre min si max
         var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
         var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
-        //TiltPlayer(deltaX);
+        TiltPlayer(deltaX);
         //movement = new Vector2(newXPos, newYPos);
         //transform.position = movement;
         Vector3 delta = new Vector3(newXPos,newYPos,0);
@@ -124,6 +124,7 @@ public class Player : NetworkBehaviour
                                             Time.deltaTime * lerpRate);
     }
 
+    [Command]
     private void TiltPlayer(float deltaX)
     {
         if (deltaX > 0)
