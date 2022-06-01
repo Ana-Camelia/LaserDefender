@@ -77,9 +77,10 @@ public class Player : NetworkBehaviour
         if (!hasAuthority) { return; }
         Move();
         //CmdMove(movement);
-        //Fire();
+        Fire();
     }
 
+#region Movement and Tilting
     void OnMove(InputValue value)
     {
         movement = value.Get<Vector2>();
@@ -143,7 +144,10 @@ public class Player : NetworkBehaviour
             myAnimator.SetBool("isTiltingRight", false);
         }
     }
+    #endregion
 
+#region Firing
+    [ClientCallback]
     void Fire()
     {
         if (Input.GetButtonDown("Fire1")) //left click
@@ -162,17 +166,25 @@ public class Player : NetworkBehaviour
     {
         while (true)
         {
-            GameObject laser = Instantiate(
-                  laserPrefab,
-                  transform.position + laserPadding,
-                  Quaternion.identity) as GameObject;
-
-            //instantiem un nou laser ca gameobject
-            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
+            SpawnLaser();
             AudioSource.PlayClipAtPoint(laserSFX, Camera.main.transform.position, laserSFXVolume);
             yield return new WaitForSeconds(laserFiringPeriod);
         }
     }
+
+    [Command]
+    private void SpawnLaser()
+    {
+        GameObject laser = Instantiate(
+                          laserPrefab,
+                          transform.position + laserPadding,
+                          Quaternion.identity) as GameObject;
+
+        //instantiem un nou laser ca gameobject
+        laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
+        NetworkServer.Spawn(laser, connectionToClient);
+    }
+#endregion
 
 #region Health and Death
     void OnTriggerEnter2D(Collider2D other)
