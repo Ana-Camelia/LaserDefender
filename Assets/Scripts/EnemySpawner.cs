@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : NetworkBehaviour
 {
-    [SerializeField] List<WaveConfig> waveConfigs;
-    [SerializeField] int startingWave = 0;
-    [SerializeField] bool looping = false;
+    [SyncVar][SerializeField] List<WaveConfig> waveConfigs;
+    [SyncVar][SerializeField] int startingWave = 0;
+    [SyncVar][SerializeField] bool looping = false;
     float offset;
     float columnParityFactor; //offset aditional pentru un numar par de coloane
     int waveRows, waveColumns;
@@ -51,12 +52,15 @@ public class EnemySpawner : MonoBehaviour
                 enemyPathing = newEnemy.GetComponent<EnemyPathing>();
                 enemyPathing.SetWaveConfig(waveConfig); //setam waveConfig-ul in codul de enemyPathing atasat fiecarui inamic
                 enemyPathing.SetWaypointOffset(offsetVector);
+
+                NetworkServer.Spawn(newEnemy, connectionToClient);
             }
 
             yield return new WaitForSeconds(waveConfig.GetTimeBetweenSpawns()); //asteptam un anumit timp pana la instantierea urmatorului inamic
         }
     }
 
+    [Server]
     private Vector3 SetOffsetVector(bool isVertical, int enemyMultiplicationIndex)
     {
         if(isVertical)
@@ -69,11 +73,13 @@ public class EnemySpawner : MonoBehaviour
                 new Vector3(0, -(enemyMultiplicationIndex / 2 + 1) * offset + columnParityFactor, 0);
     }
 
+    [Server]
     private float SetMultiplicationParityFactor(int enemyColumnIndex)
     {
         return (enemyColumnIndex % 2 == 0) ? offset / 2 : 0;
     }
 
+    [Server]
     private void SetUpWaveVariables(WaveConfig waveConfig)
     {
         Player player = FindObjectOfType<Player>();

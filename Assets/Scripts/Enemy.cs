@@ -1,15 +1,16 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : NetworkBehaviour
 {
     [Header("Health and Death")]
-    [SerializeField] float health = 100;
+    [SyncVar][SerializeField] float health = 100;
     [SerializeField] AudioClip deathSFX;
     [SerializeField] [Range(0, 1)] float deathSFXVolume = 1f;
     [SerializeField] GameObject explosionVFX;
-    [SerializeField] int scoreValue;
+    [SyncVar][SerializeField] int scoreValue;
     float durationOfExplosion = 2f;
 
     [Header("Laser")]
@@ -17,7 +18,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float laserSpeed = 10f;
     [SerializeField] AudioClip laserSFX;
     [SerializeField] [Range(0, 1)] float laserSFXVolume = 0.5f;
-    float shotCounter;
+    [SyncVar] float shotCounter;
     float minTimeBetweenShots = 0.5f;
     float maxTimeBetweenShots = 2f;
     Vector3 laserPadding = new Vector3(0, 0.5f, 0);
