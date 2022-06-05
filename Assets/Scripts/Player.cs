@@ -15,7 +15,8 @@ public class Player : NetworkBehaviour
     float yMin, yMax;
 
     [Header("Health")]
-    [SerializeField] int health = 300;
+    [SyncVar] int health;
+    [SerializeField] int maxHealth = 300;
 
     [Header("Explosion")]
     [SerializeField] AudioClip explosionSFX;
@@ -33,10 +34,11 @@ public class Player : NetworkBehaviour
     Vector3 laserPadding = new Vector3(0, 0.5f, 0);
     Coroutine firingCoroutine = null;
 
-    [Header("Materials")]
-    [SerializeField] Material fullHealthMaterial;
-    [SerializeField] Material mediumHealthMaterial;
-    [SerializeField] Material lowHealthMaterial;
+    [Header("Colors")]
+    [SyncVar] Color currentColor;
+    [SerializeField] Color fullHealthColor;
+    [SerializeField] Color mediumHealthColor;
+    [SerializeField] Color lowHealthColor;
 
     Animator myAnimator;
 
@@ -44,6 +46,8 @@ public class Player : NetworkBehaviour
     {
         myAnimator = GetComponent<Animator>();
         shakeEffect = Camera.main.GetComponent<ShakeEffect>();
+        health = maxHealth;
+        currentColor = fullHealthColor;
         SetUpBoundaries();
     }
 
@@ -195,6 +199,7 @@ public class Player : NetworkBehaviour
         if(!damageDealer) { return; }
         shakeEffect.StartShaking();
         ProcessHit(damageDealer);
+        AudioSource.PlayClipAtPoint(explosionSFX, Camera.main.transform.position, explosionSFXVolume);
         StartCoroutine(AnimationWait());
     }
 
@@ -204,41 +209,45 @@ public class Player : NetworkBehaviour
         myAnimator.SetBool("wasHitted", false);
     }
 
+    [Server]
     void ProcessHit(DamageDealer damageDealer)
     {
         health -= damageDealer.GetDamage();
         damageDealer.Hit();
-        AudioSource.PlayClipAtPoint(explosionSFX, Camera.main.transform.position, explosionSFXVolume);
         CheckHealth();
     }
 
+    [Server]
     private void CheckHealth()
     {
-        MeshRenderer bodyRenderer = transform.Find("Body").GetComponent<MeshRenderer>();
-
-        if(health >300)
+        if(health > maxHealth)
         {
-            health = 300;
-            bodyRenderer.material = fullHealthMaterial;
+            health = maxHealth;
+            currentColor = fullHealthColor;
         }
-        else if(health > 200)
+        else if(health > 2/3*maxHealth)
         {
-            bodyRenderer.material = fullHealthMaterial;
+            currentColor = fullHealthColor;
         }
-        else if (health > 100)
+        else if (health > 1/3*maxHealth)
         {
-            bodyRenderer.material = mediumHealthMaterial;
+            currentColor = mediumHealthColor;
         }
         else if (health > 0)
         {
-            bodyRenderer.material = lowHealthMaterial;
+            currentColor = lowHealthColor;
         }
         else if (health <= 0)
         {
             Die();
+            return;
         }
+
+        MeshRenderer bodyRenderer = transform.Find("Body").GetComponent<MeshRenderer>();
+        bodyRenderer.material.color = currentColor;
     }
 
+    [Server]
     void Die()
     {
         FindObjectOfType<GameManager>().LoadGameOver();
@@ -247,9 +256,11 @@ public class Player : NetworkBehaviour
             explosionVFX,
             transform.position,
             Quaternion.identity) as GameObject;
+        NetworkServer.Spawn(explosion, connectionToClient);
         Destroy(explosion, durationOfExplosion);
     }
 
+    [Server]
     public int GetHealth()
     {
         if (health > 0) return health;
