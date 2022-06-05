@@ -31,7 +31,7 @@ public class Player : NetworkBehaviour
     float laserSpeed = 20f;
     float laserFiringPeriod = 0.1f;
     Vector3 laserPadding = new Vector3(0, 0.5f, 0);
-    Coroutine firingCoroutine;
+    Coroutine firingCoroutine = null;
 
     [Header("Materials")]
     [SerializeField] Material fullHealthMaterial;
@@ -150,15 +150,16 @@ public class Player : NetworkBehaviour
     [ClientCallback]
     void Fire()
     {
-        if (Input.GetButtonDown("Fire1")) //left click
+        if (Mouse.current.leftButton.isPressed && firingCoroutine == null) //left click
         {
             //incepem o rutina pentru a trage continuu cand tinem Fire1 apasat
             firingCoroutine = StartCoroutine(FireContinuously());
         }
-        if (Input.GetButtonUp("Fire1")) //left click
+        if (!Mouse.current.leftButton.isPressed && firingCoroutine != null) //left click
         {
             //oprim rutina cand ridicam degetul de pe buton
             StopCoroutine(firingCoroutine);
+            firingCoroutine = null;
         }
     }
 
