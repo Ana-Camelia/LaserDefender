@@ -19,8 +19,8 @@ public class Player : NetworkBehaviour
     [SerializeField] int maxHealth = 300;
 
     [Header("Explosion")]
-    [SerializeField] AudioClip explosionSFX;
-    [SerializeField] [Range(0, 1)] float explosionSFXVolume = 1f;
+    //[SerializeField] AudioClip explosionSFX;
+    //[SerializeField] [Range(0, 1)] float explosionSFXVolume = 1f;
     [SerializeField] GameObject explosionVFX;
     float durationOfExplosion = 2f;
     ShakeEffect shakeEffect;
@@ -194,12 +194,14 @@ public class Player : NetworkBehaviour
 #region Health and Death
     void OnTriggerEnter2D(Collider2D other)
     {
+        //AudioSource.PlayClipAtPoint(explosionSFX, Camera.main.transform.position, explosionSFXVolume);
+        myAnimator.SetBool("isTiltingLeft", false);
+        myAnimator.SetBool("isTiltingRight", false);
         myAnimator.SetBool("wasHitted", true);
         DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
         if(!damageDealer) { return; }
         shakeEffect.StartShaking();
         ProcessHit(damageDealer);
-        AudioSource.PlayClipAtPoint(explosionSFX, Camera.main.transform.position, explosionSFXVolume);
         StartCoroutine(AnimationWait());
     }
 

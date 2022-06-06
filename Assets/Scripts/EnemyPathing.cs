@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class EnemyPathing : MonoBehaviour
+public class EnemyPathing : NetworkBehaviour
 {
     //in acest cod se descrie comportamentul
     WaveConfig waveConfig;
@@ -11,6 +12,7 @@ public class EnemyPathing : MonoBehaviour
     int waypointIndex = 1;
     Vector3 waypointOffset = new Vector3(0,0,0);
 
+    [ServerCallback]
     // Start is called before the first frame update
     void Start()
     {
@@ -18,22 +20,26 @@ public class EnemyPathing : MonoBehaviour
         //transform.position = waypoints[waypointIndex].transform.position; //pozitionam inamicul in dreptul primului waypoint din traiectorie
     }
 
+    [ServerCallback]
     // Update is called once per frame
     void Update()
     {
         Move();
     }
 
+    [Server]
     public void SetWaveConfig(WaveConfig waveConfig)
     {
         this.waveConfig = waveConfig;
     }
 
+    [Server]
     public void SetWaypointOffset(Vector3 waypointOffset)
     {
         this.waypointOffset = waypointOffset;
     }
 
+    [Server]
     private void Move()
     {
         //daca inca nu am ajuns la finalul listei, continuam traiectoria

@@ -14,6 +14,7 @@ public class EnemySpawner : NetworkBehaviour
     Vector3 offsetVector;
     EnemyPathing enemyPathing;
 
+    [ServerCallback]
     // Start is called before the first frame update
     IEnumerator Start() //transformam metoda Start() intr-o corutina deoarece lansarea wave-urilor este repetitiva
     {
@@ -25,6 +26,7 @@ public class EnemySpawner : NetworkBehaviour
 
     }
 
+    [ServerCallback]
     IEnumerator SpawnAllWaves()
     {
         for (int waveIndex = startingWave; waveIndex < waveConfigs.Count; waveIndex++) //parcurgem lista de wave-uri
@@ -34,6 +36,7 @@ public class EnemySpawner : NetworkBehaviour
         }
     }
 
+    [ServerCallback]
     IEnumerator SpawnAllEnemiesInWave(WaveConfig waveConfig)
     {
         SetUpWaveVariables(waveConfig);
@@ -73,13 +76,13 @@ public class EnemySpawner : NetworkBehaviour
                 new Vector3(0, -(enemyMultiplicationIndex / 2 + 1) * offset + columnParityFactor, 0);
     }
 
-    [Server]
+    [ServerCallback]
     private float SetMultiplicationParityFactor(int enemyColumnIndex)
     {
         return (enemyColumnIndex % 2 == 0) ? offset / 2 : 0;
     }
 
-    [Server]
+    [ServerCallback]
     private void SetUpWaveVariables(WaveConfig waveConfig)
     {
         Player player = FindObjectOfType<Player>();

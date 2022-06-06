@@ -7,8 +7,8 @@ public class Enemy : NetworkBehaviour
 {
     [Header("Health and Death")]
     [SyncVar][SerializeField] float health = 100;
-    [SerializeField] AudioClip deathSFX;
-    [SerializeField] [Range(0, 1)] float deathSFXVolume = 1f;
+    //[SerializeField] AudioClip deathSFX;
+    //[SerializeField] [Range(0, 1)] float deathSFXVolume = 1f;
     [SerializeField] GameObject explosionVFX;
     [SyncVar][SerializeField] int scoreValue;
     float durationOfExplosion = 2f;
@@ -16,8 +16,8 @@ public class Enemy : NetworkBehaviour
     [Header("Laser")]
     [SerializeField] GameObject laserPrefab;
     [SerializeField] float laserSpeed = 10f;
-    [SerializeField] AudioClip laserSFX;
-    [SerializeField] [Range(0, 1)] float laserSFXVolume = 0.5f;
+    //[SerializeField] AudioClip laserSFX;
+    //[SerializeField] [Range(0, 1)] float laserSFXVolume = 0.5f;
     [SyncVar] float shotCounter;
     float minTimeBetweenShots = 0.5f;
     float maxTimeBetweenShots = 2f;
@@ -60,7 +60,7 @@ public class Enemy : NetworkBehaviour
                   Quaternion.Euler(0,0,180)) as GameObject;
         //instantiem un nou laser ca gameobject
         laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -laserSpeed);
-        AudioSource.PlayClipAtPoint(laserSFX, Camera.main.transform.position, laserSFXVolume);
+        //AudioSource.PlayClipAtPoint(laserSFX, Camera.main.transform.position, laserSFXVolume);
         NetworkServer.Spawn(laser, connectionToClient);
     }
 
@@ -93,7 +93,7 @@ public class Enemy : NetworkBehaviour
             Quaternion.identity) as GameObject;
         NetworkServer.Spawn(explosion, connectionToClient);
         Destroy(explosion, durationOfExplosion);
-        AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position, deathSFXVolume);
+        //AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position, deathSFXVolume);
     }
 
 }
