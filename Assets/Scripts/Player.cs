@@ -35,7 +35,7 @@ public class Player : NetworkBehaviour
     Coroutine firingCoroutine = null;
 
     [Header("Colors")]
-    [SyncVar] Color currentColor;
+    [SyncVar(hook = nameof(SetColor))] Color currentColor;
     [SerializeField] Color fullHealthColor;
     [SerializeField] Color mediumHealthColor;
     [SerializeField] Color lowHealthColor;
@@ -46,8 +46,8 @@ public class Player : NetworkBehaviour
     {
         myAnimator = GetComponent<Animator>();
         shakeEffect = Camera.main.GetComponent<ShakeEffect>();
-        health = maxHealth;
-        currentColor = fullHealthColor;
+        //health = maxHealth;
+        //currentColor = fullHealthColor;
         SetUpBoundaries();
     }
 
@@ -189,9 +189,14 @@ public class Player : NetworkBehaviour
         laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
         NetworkServer.Spawn(laser, connectionToClient);
     }
-#endregion
+    #endregion
 
 #region Health and Death
+    public override void OnStartServer()
+    {
+        health = maxHealth;
+        currentColor = fullHealthColor;
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         //AudioSource.PlayClipAtPoint(explosionSFX, Camera.main.transform.position, explosionSFXVolume);
@@ -214,7 +219,8 @@ public class Player : NetworkBehaviour
     [Server]
     void ProcessHit(DamageDealer damageDealer)
     {
-        health -= damageDealer.GetDamage();
+        if (health == 0) return;
+        health = Mathf.Max(health - damageDealer.GetDamage(), 0);
         damageDealer.Hit();
         CheckHealth();
     }
@@ -227,11 +233,11 @@ public class Player : NetworkBehaviour
             health = maxHealth;
             currentColor = fullHealthColor;
         }
-        else if(health > 2/3*maxHealth)
+        else if(health > maxHealth/3*2)
         {
             currentColor = fullHealthColor;
         }
-        else if (health > 1/3*maxHealth)
+        else if (health > maxHealth/3)
         {
             currentColor = mediumHealthColor;
         }
@@ -245,8 +251,12 @@ public class Player : NetworkBehaviour
             return;
         }
 
+    }
+
+    void SetColor(Color oldColor, Color newColor)
+    {
         MeshRenderer bodyRenderer = transform.Find("Body").GetComponent<MeshRenderer>();
-        bodyRenderer.material.color = currentColor;
+        bodyRenderer.material.color = newColor;
     }
 
     [Server]
