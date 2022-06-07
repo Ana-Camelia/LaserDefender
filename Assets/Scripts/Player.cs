@@ -216,7 +216,7 @@ public class Player : NetworkBehaviour
         myAnimator.SetBool("wasHitted", false);
     }
 
-    [Server]
+    [ServerCallback]
     void ProcessHit(DamageDealer damageDealer)
     {
         if (health == 0) return;
@@ -263,7 +263,7 @@ public class Player : NetworkBehaviour
     void Die()
     {
         FindObjectOfType<GameManager>().LoadGameOver();
-        Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
         GameObject explosion = Instantiate(
             explosionVFX,
             transform.position,

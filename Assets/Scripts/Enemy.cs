@@ -24,13 +24,13 @@ public class Enemy : NetworkBehaviour
     Vector3 laserPadding = new Vector3(0, 0.5f, 0);
 
     // Start is called before the first frame update
-    [Server]
+    [ServerCallback]
     void Start()
     {
         shotCounter = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
     }
 
-    [Server]
+    [ServerCallback]
     // Update is called once per frame
     void Update()
     {
@@ -71,7 +71,7 @@ public class Enemy : NetworkBehaviour
         ProcessHit(damageDealer);
     }
 
-    [Server]
+    [ServerCallback]
     void ProcessHit(DamageDealer damageDealer)
     {
         health -= damageDealer.GetDamage();
@@ -86,7 +86,7 @@ public class Enemy : NetworkBehaviour
     void Die()
     {
         FindObjectOfType<GameSession>().AddToScore(scoreValue);
-        Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
         GameObject explosion = Instantiate(
             explosionVFX,
             transform.position,

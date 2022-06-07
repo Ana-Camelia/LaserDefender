@@ -59,7 +59,7 @@ public class EnemyPathing : NetworkBehaviour
         }
         else //altfel inseamna ca traiectoria a fost parcursa, deci putem sa distrugem obiectul(inamicul)
         {
-            Destroy(gameObject);
+            NetworkServer.Destroy(gameObject);
         }
     }
 }
