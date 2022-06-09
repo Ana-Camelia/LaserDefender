@@ -44,7 +44,8 @@ public class GameSession : NetworkBehaviour
     {
         score += scoreValue;
         FindObjectOfType<ScoreDisplay>().SetCurrentScore(score);
-        Debug.Log(score);
+        FindObjectOfType<ProgressBar>().SetCurrentScore(score);
+        //Debug.Log(score);
     }
 
     //void SetScore(int oldScore, int newScore)

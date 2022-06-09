@@ -2,21 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
-public class ProgressBar : MonoBehaviour
+public class ProgressBar : NetworkBehaviour
 {
     Slider progressBar;
+    [SyncVar(hook = nameof(SetScore))]
+    int currentScore;
     // Start is called before the first frame update
     void Start()
     {
-        progressBar = GetComponent<Slider>();
+        progressBar = transform.Find("Level Progress").GetComponent<Slider>();
         progressBar.maxValue = FindObjectOfType<LevelConfig>().GetTargetScore();
         progressBar.value = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    [Server]
+    public void SetCurrentScore(int score)
     {
-        progressBar.value = FindObjectOfType<GameSession>().GetScore();
+        currentScore = score;
+    }
+
+    void SetScore(int oldScore, int newScore)
+    {
+        progressBar.value = newScore;
     }
 }
