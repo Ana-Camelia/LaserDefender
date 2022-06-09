@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class ScoreDisplay : MonoBehaviour
+using Mirror;
+
+public class ScoreDisplay : NetworkBehaviour
 {
     TextMeshProUGUI scoreText;
+    [SyncVar(hook = nameof(SetScore))]
+    int currentScore;
     GameSession gameSession;
     GameManager gameManager;
     LevelConfig levelConfig;
@@ -13,7 +17,7 @@ public class ScoreDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreText = GetComponent<TextMeshProUGUI>();
+        scoreText = transform.Find("Score Text").GetComponent<TextMeshProUGUI>();
         gameSession = FindObjectOfType<GameSession>();
         gameManager = FindObjectOfType<GameManager>();
         levelConfig = FindObjectOfType<LevelConfig>();
@@ -22,14 +26,23 @@ public class ScoreDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = gameSession.GetScore().ToString("000000");
         //Debug.Log(gameSession.GetScore().ToString());
         if (!levelConfig) { return; }
         if ((gameSession.GetScore() >= levelConfig.GetTargetScore()) && (levelConfig.GetSceneName().Contains("Level")))
         {
             gameManager.LoadNextLevel();
         }
+    }
 
+    [Server]
+    public void SetCurrentScore(int score)
+    {
+        currentScore = score;
+    }
 
+    void SetScore(int oldScore, int newScore)
+    {
+        scoreText.text = newScore.ToString("000000");
+        Debug.Log(newScore.ToString("000000"));
     }
 }

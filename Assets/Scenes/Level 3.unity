@@ -1031,6 +1031,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7562411136835242923, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
+      propertyPath: sceneId
+      value: 1631625830
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
 --- !u!1001 &7720642269430751418

@@ -2,10 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
+using TMPro;
 
-public class GameSession : MonoBehaviour
+public class GameSession : NetworkBehaviour
 {
+    //[SyncVar(hook = nameof(SetScore))]
     int score = 0;
+    //[SerializeField]
+    //GameObject scoreText;
 
     void Awake()
     {
@@ -28,15 +33,25 @@ public class GameSession : MonoBehaviour
         }
     }
 
+    [ServerCallback]
     public int GetScore()
     {
         return score;
     }
 
+    [Server]
     public void AddToScore(int scoreValue)
     {
         score += scoreValue;
+        FindObjectOfType<ScoreDisplay>().SetCurrentScore(score);
+        Debug.Log(score);
     }
+
+    //void SetScore(int oldScore, int newScore)
+    //{
+    //    FindObjectOfType<ScoreDisplay>().SetCurrentScore(newScore);
+    //    Debug.Log(newScore);
+    //}
 
     public void ResetGame()
     {

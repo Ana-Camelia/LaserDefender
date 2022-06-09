@@ -939,6 +939,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8021189568462788757, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
+      propertyPath: sceneId
+      value: 2765351883
+      objectReference: {fileID: 0}
     - target: {fileID: 4027506352607330114, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1026,6 +1030,34 @@ PrefabInstance:
     - target: {fileID: 4027506352607330118, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
       propertyPath: m_Name
       value: HealthCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579095571145711044, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579095571145711044, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579095571145711044, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848978964474902735, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848978964474902735, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562411136835242923, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
+      propertyPath: sceneId
+      value: 2058305201
+      objectReference: {fileID: 0}
+    - target: {fileID: 7807163353157308427, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
+      propertyPath: sceneId
+      value: 2277680694
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd5db43e4059bc84b9f226a00072b58f, type: 3}
