@@ -27,10 +27,17 @@ public class ScoreDisplay : NetworkBehaviour
     void Update()
     {
         //Debug.Log(gameSession.GetScore().ToString());
-        if (!levelConfig) { return; }
+        if (!levelConfig) return;
+        CmdNextLevel();
+    }
+
+    //[Command]
+    private void CmdNextLevel()
+    {
         if ((gameSession.GetScore() >= levelConfig.GetTargetScore()) && (levelConfig.GetSceneName().Contains("Level")))
         {
             gameManager.LoadNextLevel();
+            Debug.Log("yo n-apelez nmka");
         }
     }
 

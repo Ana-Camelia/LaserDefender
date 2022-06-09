@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Mirror;
 
-public class LevelConfig : MonoBehaviour
+public class LevelConfig : NetworkBehaviour
 {
     [SerializeField] int targetScore = 100;
     int sceneIndex;
