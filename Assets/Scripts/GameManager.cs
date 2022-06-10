@@ -13,23 +13,25 @@ public class GameManager : NetworkBehaviour
     [Server]
     public void LoadNextLevel()
     {
-        if (NetworkServer.isLoadingScene) return;
-        //StartCoroutine(DelayNextLevel());
-        string pathToScene = SceneUtility.GetScenePathByBuildIndex(FindObjectOfType<LevelConfig>().GetSceneIndex() + 1);
-        string sceneName = System.IO.Path.GetFileNameWithoutExtension(pathToScene);
-        NetworkManager.singleton.ServerChangeScene(sceneName);
+        StartCoroutine(DelayNextLevel());
     }
 
     IEnumerator DelayNextLevel()
     {
-        Time.timeScale = 0.1f;
         yield return new WaitForSeconds(nextLevelDelay);
-        Time.timeScale = 1;
         string pathToScene = SceneUtility.GetScenePathByBuildIndex(FindObjectOfType<LevelConfig>().GetSceneIndex() + 1);
         string sceneName = System.IO.Path.GetFileNameWithoutExtension(pathToScene);
-        NetworkManager.singleton.ServerChangeScene(sceneName);
-        //SceneManager.LoadScene(FindObjectOfType<LevelConfig>().GetSceneIndex() + 1);
+        NetworkChangeScene(sceneName);
     }
+
+    [Server]
+    private static void NetworkChangeScene(string sceneName)
+    {
+        if (NetworkServer.isLoadingScene) return;
+        NetworkManager.singleton.ServerChangeScene(sceneName);
+    }
+
+
 
     public void StartGame()
     {

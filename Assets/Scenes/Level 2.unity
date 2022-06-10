@@ -488,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5702566389419889086, guid: b1e45e39a7cd6384fa21216950e974a7, type: 3}
       propertyPath: targetScore
-      value: 300
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5702566389419889087, guid: b1e45e39a7cd6384fa21216950e974a7, type: 3}
       propertyPath: m_Name

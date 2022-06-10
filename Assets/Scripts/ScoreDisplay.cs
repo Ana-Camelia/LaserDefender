@@ -37,7 +37,6 @@ public class ScoreDisplay : NetworkBehaviour
         if ((gameSession.GetScore() >= levelConfig.GetTargetScore()) && (levelConfig.GetSceneName().Contains("Level")))
         {
             gameManager.LoadNextLevel();
-            Debug.Log("yo n-apelez nmka");
         }
     }
 
