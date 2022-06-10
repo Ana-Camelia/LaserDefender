@@ -102,15 +102,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2814f0150ae2c42a61179cbd5a193e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   health: 300
-  deathSFX: {fileID: 8300000, guid: 602de2200cf0f5c45b75064dd05155c1, type: 3}
-  deathSFXVolume: 0.3
   explosionVFX: {fileID: 3804573288917711026, guid: c53d635724bd594438735942d3bc8e53, type: 3}
   scoreValue: 30
   laserPrefab: {fileID: 0}
   laserSpeed: 10
-  laserSFX: {fileID: 0}
-  laserSFXVolume: 0.2
 --- !u!114 &5366148180495372604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e811d633b6b7c40a0026596e36281c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!50 &2269773467191536861
 Rigidbody2D:
   serializedVersion: 4
@@ -159,7 +159,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.43590486
+  m_Radius: 0.38
 --- !u!114 &5123424478373320020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b03acba7c40894ebe94bbad13c28d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   damage: 10000
 --- !u!114 &5493872744588722092
 MonoBehaviour:

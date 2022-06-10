@@ -115,22 +115,22 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.48999998, y: -0.13}
-      - {x: 0.089999996, y: 0.17999999}
-      - {x: 0.03, y: 0.45}
-      - {x: 0.03, y: 0.45999998}
-      - {x: -0.01, y: 0.45999998}
-      - {x: -0.04, y: 0.45}
-      - {x: -0.08, y: 0.19}
-      - {x: -0.48999998, y: -0.14}
-      - {x: -0.48999998, y: -0.17}
-      - {x: -0.32, y: -0.34}
-      - {x: -0.16, y: -0.34}
-      - {x: -0.01, y: -0.48999998}
-      - {x: 0.01, y: -0.48999998}
-      - {x: 0.16, y: -0.34}
-      - {x: 0.32, y: -0.34}
-      - {x: 0.48999998, y: -0.17}
+    - - {x: 0.43253338, y: -0.15633905}
+      - {x: 0.08521112, y: 0.09619443}
+      - {x: 0.04436665, y: 0.1363284}
+      - {x: 0.01563336, y: 0.325911}
+      - {x: -0.0004222393, y: 0.37858862}
+      - {x: -0.025633352, y: 0.27041692}
+      - {x: -0.05605559, y: 0.13253349}
+      - {x: -0.44211116, y: -0.16633858}
+      - {x: -0.38943353, y: -0.22028343}
+      - {x: -0.2960556, y: -0.29450545}
+      - {x: -0.14563334, y: -0.2849277}
+      - {x: 0.004366642, y: -0.4349279}
+      - {x: 0.07704434, y: -0.36788365}
+      - {x: 0.15042225, y: -0.29211125}
+      - {x: 0.3152111, y: -0.2849277}
+      - {x: 0.4133779, y: -0.18436663}
 --- !u!114 &7830185561624713391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,15 +143,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2814f0150ae2c42a61179cbd5a193e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   health: 200
-  deathSFX: {fileID: 8300000, guid: 602de2200cf0f5c45b75064dd05155c1, type: 3}
-  deathSFXVolume: 0.3
   explosionVFX: {fileID: 3804573288917711026, guid: c53d635724bd594438735942d3bc8e53, type: 3}
   scoreValue: 20
   laserPrefab: {fileID: 748430062766959504, guid: d24c9ca2654dc764aac86ed2c1056459, type: 3}
   laserSpeed: 10
-  laserSFX: {fileID: 8300000, guid: fb052946f6de8894e82ef72bddcf57da, type: 3}
-  laserSFXVolume: 0.2
 --- !u!114 &5366148180495372604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e811d633b6b7c40a0026596e36281c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!50 &-5893822974683809424
 Rigidbody2D:
   serializedVersion: 4
@@ -197,6 +197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b03acba7c40894ebe94bbad13c28d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   damage: 10000
 --- !u!114 &-7943665414213461622
 MonoBehaviour:

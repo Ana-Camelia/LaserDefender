@@ -115,14 +115,16 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.01, y: 0.32999998}
-      - {x: -0.48999998, y: -0.08}
-      - {x: -0.48999998, y: -0.32}
-      - {x: -0.39999998, y: -0.34}
-      - {x: 0.45, y: -0.34}
-      - {x: 0.48999998, y: -0.17}
-      - {x: 0.48999998, y: -0.14999999}
-      - {x: 0.01, y: 0.32999998}
+    - - {x: -0.0032552946, y: 0.2827869}
+      - {x: -0.45290408, y: -0.16262205}
+      - {x: -0.38882944, y: -0.2289465}
+      - {x: -0.3224359, y: -0.28772864}
+      - {x: -0.0028118417, y: -0.14019537}
+      - {x: 0.31173354, y: -0.29110083}
+      - {x: 0.4461594, y: -0.1733722}
+      - {x: 0.44953176, y: -0.1702341}
+      - {x: 0.00999999, y: 0.27772856}
+      - {x: 0.003255302, y: 0.2827869}
 --- !u!114 &5036401667634879248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,15 +137,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2814f0150ae2c42a61179cbd5a193e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   health: 100
-  deathSFX: {fileID: 8300000, guid: 602de2200cf0f5c45b75064dd05155c1, type: 3}
-  deathSFXVolume: 0.3
   explosionVFX: {fileID: 3804573288917711026, guid: c53d635724bd594438735942d3bc8e53, type: 3}
   scoreValue: 10
   laserPrefab: {fileID: 748430062766959504, guid: d24c9ca2654dc764aac86ed2c1056459, type: 3}
   laserSpeed: 10
-  laserSFX: {fileID: 8300000, guid: fb052946f6de8894e82ef72bddcf57da, type: 3}
-  laserSFXVolume: 0.2
 --- !u!114 &5366148180495372604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e811d633b6b7c40a0026596e36281c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!50 &-7093076457096303937
 Rigidbody2D:
   serializedVersion: 4
@@ -189,6 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b03acba7c40894ebe94bbad13c28d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   damage: 10000
 --- !u!114 &1206365731240303201
 MonoBehaviour:
