@@ -21,7 +21,12 @@ public class GameManager : NetworkBehaviour
     public void StartServer()
     {
         NetworkManager.singleton.StartServer();
-        NetworkChangeScene("Level 1");
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        //NetworkChangeScene("Level 1");
     }
     public void ExitGame()
     {
