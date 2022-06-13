@@ -849,6 +849,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2323718878840498551, guid: c05cb3b514dc57648bea842aa3c11157, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c05cb3b514dc57648bea842aa3c11157, type: 3}
 --- !u!1001 &2510673866224230286
